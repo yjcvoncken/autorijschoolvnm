@@ -1,0 +1,8 @@
+{% for package in packages %}
+<article class="package-card {% if package.featured %}featured{% endif %}">
+  {% if package.label %}<span class="badge">{{ package.label }}</span>{% endif %}
+  <h3>{{ package.name }}</h3><div class="price"><strong>{{ package.price }}</strong>{% if '€' in package.price %}<span>incl. btw</span>{% endif %}</div>
+  <p class="package-desc">{{ package.description }}</p><ul class="package-features">{% for feature in package.feature_list %}<li>{{ feature }}</li>{% endfor %}</ul>
+  <a class="btn {% if package.featured %}btn-light{% else %}btn-outline{% endif %}" href="{% url 'contact' %}?pakket={{ package.pk }}">Kies dit pakket</a>
+</article>
+{% empty %}<p>De lespakketten worden binnenkort toegevoegd.</p>{% endfor %}

@@ -1,0 +1,4 @@
+<div class="gallery-grid">
+{% for photo in gallery %}<button class="gallery-item" data-lightbox="{{ photo.image.url }}" aria-label="{{ photo.alt_text|default:photo.title }} openen"><img src="{{ photo.image.url }}" alt="{{ photo.alt_text|default:photo.title }}"></button>
+{% empty %}<p>Er zijn nog geen galerijfoto's toegevoegd.</p>{% endfor %}
+</div>
