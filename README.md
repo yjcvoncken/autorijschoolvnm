@@ -57,8 +57,8 @@ toegevoegd, zodat inloggen en opslaan in het beheer via HTTPS blijft werken.
 
 Koppel deze repository als service in Railway en voeg een PostgreSQL-service
 toe. Railway levert `DATABASE_URL` dan automatisch aan Django. `railway.json`
-verzamelt de statische bestanden tijdens de build, voert migraties uit vóór de
-deployment en start Gunicorn op Railway's dynamische `PORT`.
+verzamelt de statische bestanden tijdens de build, voert migraties uit wanneer
+de webcontainer start en start Gunicorn op Railway's dynamische `PORT`.
 
 Stel minimaal deze variabelen in:
 

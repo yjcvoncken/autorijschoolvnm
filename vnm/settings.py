@@ -6,7 +6,8 @@ import dj_database_url
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-change-this-key-before-production")
-DEBUG = os.getenv("DJANGO_DEBUG", "true").lower() == "true"
+debug_default = "false" if os.getenv("RAILWAY_ENVIRONMENT") else "true"
+DEBUG = os.getenv("DJANGO_DEBUG", debug_default).lower() == "true"
 
 
 def env_list(name):
