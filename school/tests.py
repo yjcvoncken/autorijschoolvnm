@@ -31,6 +31,17 @@ class PublicWebsiteTests(TestCase):
         response = self.client.get("/health/", headers={"host": "healthcheck.railway.app"})
         self.assertEqual(response.status_code, 200)
 
+    def test_bare_domain_redirects_to_www_and_preserves_request(self):
+        response = self.client.get(
+            "/contact/?pakket=2",
+            headers={"host": "autorijschoolvnm.nl"},
+        )
+        self.assertEqual(response.status_code, 301)
+        self.assertEqual(
+            response.url,
+            "https://www.autorijschoolvnm.nl/contact/?pakket=2",
+        )
+
     def test_contact_request_is_saved(self):
         package = Package.objects.get(name="Proefles")
         response = self.client.post(reverse("contact"), {

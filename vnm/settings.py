@@ -19,6 +19,8 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "testserver",
     "healthcheck.railway.app",
+    "autorijschoolvnm.nl",
+    "www.autorijschoolvnm.nl",
     *env_list("ALLOWED_HOSTS"),
 ]
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "vnm.middleware.RailwayHealthCheckMiddleware",
+    "vnm.middleware.CanonicalDomainMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
