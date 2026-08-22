@@ -21,6 +21,11 @@ class PublicWebsiteTests(TestCase):
             with self.subTest(name=name):
                 self.assertEqual(self.client.get(reverse(name)).status_code, 200)
 
+    def test_railway_healthcheck(self):
+        response = self.client.get("/health/", headers={"host": "healthcheck.railway.app"})
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.content, b"ok")
+
     def test_contact_request_is_saved(self):
         package = Package.objects.get(name="Proefles")
         response = self.client.post(reverse("contact"), {

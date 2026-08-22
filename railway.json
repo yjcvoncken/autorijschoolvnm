@@ -7,7 +7,7 @@
   "deploy": {
     "preDeployCommand": "python manage.py migrate",
     "startCommand": "gunicorn vnm.wsgi:application --bind 0.0.0.0:$PORT --access-logfile - --error-logfile -",
-    "healthcheckPath": "/",
+    "healthcheckPath": "/health/",
     "healthcheckTimeout": 120
   }
 }

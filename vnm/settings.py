@@ -13,7 +13,13 @@ def env_list(name):
     return [value.strip() for value in os.getenv(name, "").split(",") if value.strip()]
 
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "testserver", *env_list("ALLOWED_HOSTS")]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "testserver",
+    "healthcheck.railway.app",
+    *env_list("ALLOWED_HOSTS"),
+]
 CSRF_TRUSTED_ORIGINS = env_list("CSRF_TRUSTED_ORIGINS")
 
 # Railway provides the public hostname automatically. Trust that exact host for
