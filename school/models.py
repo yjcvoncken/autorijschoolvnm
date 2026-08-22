@@ -6,7 +6,7 @@ class SiteSettings(models.Model):
     hero_text = models.TextField("introductietekst", default="Persoonlijke rijlessen in Nijmegen, met geduld, vertrouwen en begeleiding die écht bij jou past.")
     about_title = models.CharField("titel over ons", max_length=160, default="Rijles met aandacht voor jou")
     about_text = models.TextField("tekst over ons", default="Bij Autorijschool VNM staat jouw ontwikkeling centraal. Je krijgt les in een rustige, prettige sfeer en werkt stap voor stap aan veilig en zelfverzekerd rijgedrag.")
-    instructor = models.CharField("naam instructeur", max_length=100, default="Yasser")
+    instructor = models.CharField("naam instructeur", max_length=100, default="Mazin")
     success_rate = models.PositiveSmallIntegerField("slagingspercentage", default=76)
     phone = models.CharField("telefoonnummer", max_length=30, default="06 - 28 868 238")
     email = models.EmailField("e-mailadres", default="autorijschoolvnm1971@hotmail.com")
@@ -15,7 +15,7 @@ class SiteSettings(models.Model):
         blank=True,
         help_text="Bijvoorbeeld je Gmail-adres. Leeg laten om het openbare e-mailadres te gebruiken.",
     )
-    address = models.CharField("adres", max_length=200, default="Voorstenkamp 13-27, 6545 EP Nijmegen")
+    address = models.CharField("adres", max_length=200, default="De Voorstenkamp 13-27, 6545 EP Nijmegen")
     city = models.CharField("plaats", max_length=100, default="Nijmegen")
     whatsapp = models.CharField("WhatsApp-nummer", max_length=30, default="31628868238", help_text="Alleen cijfers, inclusief landcode.")
     facebook_url = models.URLField(
