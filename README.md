@@ -16,7 +16,12 @@ Open de website op `http://127.0.0.1:8000/` en het beheer op
 `http://127.0.0.1:8000/beheer/` (of `/admin/`).
 
 Via het beheer kunnen website-instellingen, pakketten, galerijfoto's en
-contactaanvragen worden beheerd.
+contactaanvragen worden beheerd. Onder **Beheer → Analytics** vind je
+paginaweergaven, populaire pagina's, een dagelijks overzicht en het aantal
+contactaanvragen voor de laatste 7, 30 of 90 dagen. De telling begint na
+deployment en telt geen unieke bezoekers. Er worden geen trackingcookies,
+IP-adressen of bezoekersprofielen opgeslagen. Bekende bots en ingelogde
+beheerders worden overgeslagen.
 
 ## Formulieren per e-mail ontvangen
 

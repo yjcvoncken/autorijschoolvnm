@@ -116,3 +116,20 @@ class ContactRequest(models.Model):
 
     def __str__(self):
         return f"{self.name} – {self.get_subject_display()}"
+
+
+class PageViewDaily(models.Model):
+    date = models.DateField("datum")
+    path = models.CharField("pagina", max_length=200)
+    views = models.PositiveIntegerField("paginaweergaven", default=0)
+
+    class Meta:
+        ordering = ["-date", "path"]
+        verbose_name = "analytics"
+        verbose_name_plural = "analytics"
+        constraints = [
+            models.UniqueConstraint(fields=["date", "path"], name="unique_daily_page_views"),
+        ]
+
+    def __str__(self):
+        return f"{self.date} – {self.path}"

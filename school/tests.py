@@ -93,3 +93,40 @@ class AdminTests(TestCase):
         response = self.client.get("/beheer/school/sitesettings/1/change/")
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Samen op weg naar jouw rijbewijs!")
+
+
+class AnalyticsTests(TestCase):
+    def test_counts_public_views_without_query_strings(self):
+        from .models import PageViewDaily
+        self.client.get('/?email=private@example.com')
+        self.client.get('/')
+        self.assertEqual(PageViewDaily.objects.get(path='/').views, 2)
+        self.assertEqual(PageViewDaily.objects.count(), 1)
+
+    def test_ignores_bots_errors_health_and_post_requests(self):
+        from .models import PageViewDaily
+        self.client.get('/', HTTP_USER_AGENT='Googlebot')
+        self.client.get('/missing/')
+        self.client.get('/health/')
+        self.client.post('/contact/', {})
+        self.assertFalse(PageViewDaily.objects.exists())
+
+    def test_admin_dashboard_permissions_and_totals(self):
+        from .models import PageViewDaily
+        from django.utils import timezone
+        from datetime import timedelta
+        PageViewDaily.objects.create(date=timezone.localdate(), path='/', views=12)
+        PageViewDaily.objects.create(date=timezone.localdate() - timedelta(days=40), path='/', views=5)
+        url = reverse('admin:school_pageviewdaily_changelist')
+        self.assertEqual(self.client.get(url).status_code, 302)
+        admin = get_user_model().objects.create_superuser('analytics-admin', password='test-password')
+        self.client.force_login(admin)
+        self.client.get('/')
+        self.assertEqual(PageViewDaily.objects.get(date=timezone.localdate()).views, 12)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.context_data['total_views'], 12)
+        response = self.client.get(url, {'days': 90})
+        self.assertEqual(response.context_data['total_views'], 17)
+        self.assertEqual(self.client.get(url, {'days': 'invalid'}).status_code, 200)
+        self.assertContains(self.client.get('/beheer/'), 'analytics')
